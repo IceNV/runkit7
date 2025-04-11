@@ -194,6 +194,12 @@ static inline void *runkit_zend_hash_add_or_update_ptr(HashTable *ht, zend_strin
 #     define Z_ADDREF_P(x)                           ZVAL_ADDREF(x)
 #endif
 
+#if PHP_VERSION_ID < 80300
+#ifndef IS_CONSTANT_AST
+#     define IS_CONSTANT_AST IS_CONSTANT_ARRAY
+#endif
+#endif 
+
 /* runkit_functions.c */
 #define RUNKIT_TEMP_FUNCNAME  "__runkit_temporary_function__"
 int php_runkit_check_call_stack(zend_op_array *op_array);
