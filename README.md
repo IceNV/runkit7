@@ -2,7 +2,7 @@
 ======================================================================================
 
 For all those things you.... probably shouldn't have been doing anyway.... but surely do!
-__Supports PHP7.2-8.1!__ (function/method manipulation is recommended only for unit testing, but all other functionality works.)
+__Supports PHP7.2-8.4!__ (function/method manipulation is recommended only for unit testing, but all other functionality works.)
 
 - Function/method manipulation crashes in PHP 7.4+ when opcache is enabled (e.g. `opcache.enable_cli`) ([Issue #217](https://github.com/runkit7/runkit7/issues/217))
 
@@ -18,7 +18,7 @@ __Supports PHP7.2-8.1!__ (function/method manipulation is recommended only for u
 
 This extension's documentation is available at [https://www.php.net/runkit7](https://www.php.net/runkit7).
 
-Compatibility: PHP7.2 to PHP 8.1
+Compatibility: PHP7.2 to PHP 8.4
 --------------------------------
 
 **See [runkit-api.php](./runkit-api.php) for the implemented functionality and method signatures.** New functionality was added to support usage with PHP7.
