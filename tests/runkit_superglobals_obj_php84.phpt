@@ -1,23 +1,21 @@
 --TEST--
-runkit.superglobal setting creates superglobals that can be referenced multiple ways. (new function name) (8.1+)
+runkit.superglobal setting creates superglobals that can be referenced multiple ways.
 --SKIPIF--
 <?php
 if(!extension_loaded("runkit7") || !RUNKIT7_FEATURE_MANIPULATION) print "skip\n";
 if(!extension_loaded("session")) print "skip - This test assumes \$_SESSION will exist, but the session extension isn't enabled/installed\n";
-if(PHP_VERSION_ID < 80100) print "skip GLOBALS changed in 8.1\n";
-if(PHP_VERSION_ID >= 80400) print "skip GLOBALS changed in 8.4\n";
+if(PHP_VERSION_ID < 80400) print "skip test php 8.4+ due to change to GLOBALS\n";
 ?>
 --INI--
 display_errors=on
 runkit.superglobal=foo
-error_reporting=E_ALL
 --FILE--
 <?php
 ini_set('error_reporting', E_ALL);
 
-function capture_runkit_superglobals_dump() {
+function capture_runkit7_superglobals_dump() {
     ob_start();
-    debug_zval_dump(runkit_superglobals());
+    debug_zval_dump(runkit7_superglobals());
     return ob_get_clean();
 }
 
@@ -32,11 +30,10 @@ class FooClass {
         var_dump($GLOBALS['foo']);
         var_dump($foo);
         // Verify that runkit_superglobals properly reference counts string keys, call it twice.
-        $result = capture_runkit_superglobals_dump();
+        $result = capture_runkit7_superglobals_dump();
         echo $result;
-        // In php 8.1, debug_zval_dump starts printing "interned" for internally interned strings.
         debug_zval_dump(array_keys($GLOBALS));
-        $result2 = capture_runkit_superglobals_dump();
+        $result2 = capture_runkit7_superglobals_dump();
         echo "result === result2: ";
         $same = $result === $result2;
         var_dump($same);
@@ -58,8 +55,8 @@ initfoo();
 usefoo();
 ?>
 --EXPECTF--
-#0 %srunkit_superglobals_obj_alias_php81.php(41): FooClass->bar()
-#1 %srunkit_superglobals_obj_alias_php81.php(44): usefoo()
+#0 %srunkit_superglobals_obj_php84.php(40): FooClass->bar()
+#1 %srunkit_superglobals_obj_php84.php(43): usefoo()
 object(FooClass)#1 (1) {
   ["prop"]=>
   string(5) "value"
@@ -68,9 +65,7 @@ object(FooClass)#1 (1) {
   ["prop"]=>
   string(5) "value"
 }
-
-Deprecated: Function runkit_superglobals() is deprecated in %srunkit_superglobals_obj_alias_php81.php on line 6
-array(10) refcount(1){
+array(10) packed refcount(1){
   [0]=>
   string(7) "GLOBALS" interned
   [1]=>
@@ -92,7 +87,7 @@ array(10) refcount(1){
   [9]=>
   string(3) "foo" refcount(3)
 }
-array(8) refcount(1){
+array(8) packed refcount(1){
   [0]=>
   string(4) "_GET" interned
   [1]=>

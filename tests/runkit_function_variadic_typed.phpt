@@ -6,7 +6,6 @@ runkit7_function_redefine() function, etc. can redefine variadic functions with 
 display_errors=on
 --FILE--
 <?php
-if(PHP_VERSION_ID>=80400) { define('E_STRICT',0); }
 function create_function_mock($originalName, $temporaryName) {
     if (!runkit7_function_copy($originalName, $temporaryName))
         throw new RuntimeException($originalName . ' runkit_method_copy create_function_mock');
@@ -44,7 +43,11 @@ function getter() {
 }
 
 function main() {
-    ini_set('error_reporting', E_ALL | E_STRICT);
+    if(PHP_VERSION_ID>=80400) {
+		ini_set('error_reporting', E_ALL);
+	} else {
+		ini_set('error_reporting', E_ALL | E_STRICT);
+	}
     global $impl;
     $impl = new FooImpl();
     printf("Before mock: %s\n", var_export(bar('methodName', 0), true));

@@ -4,9 +4,11 @@ runkit7_method_redefine() & runkit7_method_add() for methods returning a value b
 <?php if(!extension_loaded("runkit7") || !RUNKIT7_FEATURE_MANIPULATION) print "skip"; ?>
 --FILE--
 <?php
-if(PHP_VERSION_ID>=80400) { define('E_STRICT',0); }
-ini_set('error_reporting', E_ALL & (~E_DEPRECATED) & (~E_STRICT) & (~E_NOTICE));
-
+if(PHP_VERSION_ID>=80400) { 
+	ini_set('error_reporting', E_ALL & (~E_DEPRECATED) & (~E_NOTICE));
+} else {
+	ini_set('error_reporting', E_ALL & (~E_DEPRECATED) & (~E_STRICT) & (~E_NOTICE));
+}
 class RunkitClass {
 	var $a = 0;
 

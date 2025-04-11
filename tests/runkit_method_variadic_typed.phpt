@@ -6,7 +6,6 @@ runkit7_method_redefine() function and runkit7_method_remove(), with variadic fu
 display_errors=on
 --FILE--
 <?php
-if(PHP_VERSION_ID>=80400) { define('E_STRICT',0); }
 // This is the same as runkit_method_variadic.phpt, with return types added to the original redefined function
 function create_mock($className, $originalName, $temporaryName) {
     if (!runkit7_method_copy($className, $temporaryName, $className, $originalName))
@@ -49,7 +48,11 @@ class foo {
 }
 
 function main() {
-    ini_set('error_reporting', E_ALL | E_STRICT);
+    if(PHP_VERSION_ID>=80400) { 
+		ini_set('error_reporting', E_ALL);
+	} else {
+		ini_set('error_reporting', E_ALL | E_STRICT);
+	}
     global $impl;
     $impl = new FooImpl();
     printf("Before mock: %s\n", var_export(foo::bar('methodName', 0), true));

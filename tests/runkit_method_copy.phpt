@@ -6,8 +6,11 @@ runkit7_method_copy() function
 display_errors=on
 --FILE--
 <?php
-if(PHP_VERSION_ID>=80400) { define('E_STRICT',0); }
-ini_set('error_reporting', E_ALL & (~E_DEPRECATED) & (~E_STRICT));
+if(PHP_VERSION_ID>=80400) { 
+	ini_set('error_reporting', E_ALL & (~E_DEPRECATED));
+} else {
+	ini_set('error_reporting', E_ALL & (~E_DEPRECATED) & (~E_STRICT));
+}
 
 class runkit_one {
 	public static function runkit_method($n) {

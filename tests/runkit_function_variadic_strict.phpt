@@ -6,7 +6,6 @@ runkit7_function_redefine() function and runkit7_function_remove(), with variadi
 display_errors=on
 --FILE--
 <?php
-if(PHP_VERSION_ID>=80400) { define('E_STRICT',0); }
 function create_mock(string $originalName, string $temporaryName, string $return_type, bool $is_strict) {
     if (!runkit7_function_copy($originalName, $temporaryName))
         throw new RuntimeException($originalName . ' runkit_method_copy create_mock');
@@ -40,7 +39,11 @@ function getter() {
 }
 
 function main() {
-    ini_set('error_reporting', E_ALL | E_STRICT);
+    if(PHP_VERSION_ID>=80400) {
+		ini_set('error_reporting', E_ALL);
+	} else {
+		ini_set('error_reporting', E_ALL | E_STRICT);
+	}
     printf("Before mock: %s\n", var_export(bar('methodName', 0), true));
     create_mock('bar', 'bar0000001123', 'string', true);
     printf("After mock: %s\n", var_export(bar('methodName', 0), true));
