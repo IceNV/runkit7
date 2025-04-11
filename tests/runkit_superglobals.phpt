@@ -7,6 +7,7 @@ display_errors=on
 runkit.superglobal=foo,bar
 --FILE--
 <?php
+if(PHP_VERSION_ID>=80400) { define('E_STRICT',0); }
 function testme() {
 	echo "Foo is $foo\n";
 	echo "Bar is $bar\n";

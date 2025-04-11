@@ -6,6 +6,7 @@ runkit7_function_redefine() function, etc. can redefine variadic functions with 
 display_errors=on
 --FILE--
 <?php
+if(PHP_VERSION_ID>=80400) { define('E_STRICT',0); }
 function create_function_mock($originalName, $temporaryName) {
     if (!runkit7_function_copy($originalName, $temporaryName))
         throw new RuntimeException($originalName . ' runkit_method_copy create_function_mock');

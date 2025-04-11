@@ -6,6 +6,7 @@ runkit7_method_redefine() function and runkit7_method_remove(), with variadic fu
 display_errors=on
 --FILE--
 <?php
+if(PHP_VERSION_ID>=80400) { define('E_STRICT',0); }
 function create_mock($className, $originalName, $temporaryName) {
     if (!runkit7_method_copy($className, $temporaryName, $className, $originalName))
         throw new RuntimeException($className . '::' . $originalName . ' runkit_method_copy create_mock');

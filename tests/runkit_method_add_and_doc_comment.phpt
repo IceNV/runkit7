@@ -6,6 +6,7 @@ runkit7_method_add() function and doc_comment
 display_errors=on
 --FILE--
 <?php
+if(PHP_VERSION_ID>=80400) { define('E_STRICT',0); }
 ini_set('error_reporting', E_ALL & (~E_DEPRECATED) & (~E_STRICT));
 
 class runkit_class {

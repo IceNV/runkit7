@@ -1673,10 +1673,12 @@ escape:
                                 'E_USER_ERROR',
                                 'E_USER_WARNING',
                                 'E_USER_NOTICE',
-                                'E_STRICT', // TODO Cleanup when removed from Zend Engine.
                                 'E_RECOVERABLE_ERROR',
                                 'E_USER_DEPRECATED'
                             ];
+							if(PHP_VERSION_ID < 80400) {
+								$error_consts[] = 'E_STRICT';
+							}
                             $error_consts = array_combine(array_map('constant', $error_consts), $error_consts);
                             error("Worker $i reported unexpected {$error_consts[$message['errno']]}: $message[errstr] in $message[errfile] on line $message[errline]");
                             // no break

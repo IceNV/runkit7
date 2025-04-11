@@ -9,6 +9,7 @@ if (PHP_VERSION_ID >= 80000) { print "skip\n"; }
 display_errors=on
 --FILE--
 <?php
+if(PHP_VERSION_ID>=80400) { define('E_STRICT',0); }
 ini_set('error_reporting', E_ALL & (~E_DEPRECATED) & (~E_STRICT));
 
 class runkit_class {
