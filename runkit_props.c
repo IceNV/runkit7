@@ -36,7 +36,11 @@ static inline void php_runkit_make_object_property_public(zend_string *propname,
 		zval *prop_val = NULL;
 		if (!object->properties) {
 			prop_val = &object->properties_table[offset];
+#if PHP_VERSION_ID < 80400
+			rebuild_object_properties(object);
+#else			
 			rebuild_object_properties_internal(object);
+#endif			
 		} else if (!Z_ISUNDEF(object->properties_table[offset])) {
 			// TODO: Is Z_ISUNDEF the correct thing to do?
 			prop_val = &object->properties_table[offset];
