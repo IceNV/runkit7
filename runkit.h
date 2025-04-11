@@ -196,7 +196,7 @@ static inline void *runkit_zend_hash_add_or_update_ptr(HashTable *ht, zend_strin
 
 #if PHP_VERSION_ID < 80300
 #ifndef IS_CONSTANT_AST
-#     define IS_CONSTANT_AST IS_CONSTANT_ARRAY
+#define IS_CONSTANT_AST IS_CONSTANT_ARRAY
 #endif
 #endif 
 
