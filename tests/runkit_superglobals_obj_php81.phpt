@@ -5,7 +5,7 @@ runkit.superglobal setting creates superglobals that can be referenced multiple 
 if(!extension_loaded("runkit7") || !RUNKIT7_FEATURE_MANIPULATION) print "skip\n";
 if(!extension_loaded("session")) print "skip - This test assumes \$_SESSION will exist, but the session extension isn't enabled/installed\n";
 if(PHP_VERSION_ID < 80100) print "skip test php 8.1-8.4 due to change to GLOBALS\n";
-if(PHP_VERSION_ID >= 80400) print "skip test php 8.1-8.4 due to change to GLOBALS\n";
+if(PHP_VERSION_ID >= 80400) print "skip test php 8.4+ due to change to GLOBALS\n";
 ?>
 --INI--
 display_errors=on
